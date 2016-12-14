@@ -10,6 +10,8 @@
  * @property {string} description
  * @method   getDetails
  */
+
+ //Spell constructor function
   function Spell(name, cost, description){
     this.name = name;
     this.cost = cost;
@@ -24,6 +26,8 @@
    * @name getDetails
    * @return {string} details containing all of the spells information.
    */
+
+   //Spell method
    Spell.prototype.getDetails = function() {
     return this.name + " cost " + this.cost + " and is " + this.description
   }
@@ -52,12 +56,15 @@
  * @property {number} damage
  * @property {string} description
  */
-function DamageSpell(name, cost, damage, description){
-  Spell.call(this, name, cost, description);
-  this.damage = damage;
+
+//DamageSpell constructor
+function DamageSpell(name, cost, damage, description){ //the parameters that will be passed in
+  Spell.call(this, name, cost, description); // like super, calls on the properties of Spell
+  this.damage = damage; //instance of damage
 }
 
-DamageSpell.prototype = Object.create(Spell.prototype, {
+//extends DamageSpell to Spell constructor
+DamageSpell.prototype = Object.create(Spell.prototype, { //like extends
   constructor: DamageSpell
 });
 
@@ -79,6 +86,14 @@ DamageSpell.prototype = Object.create(Spell.prototype, {
  * @method  invoke
  */
 
+ //Spellcaster constructor
+function Spellcaster(name, health, mana){
+  this.name = name;
+  this.health = health;
+  this.mana = mana;
+  this.isAlive = true;
+}
+
   /**
    * @method inflictDamage
    *
@@ -89,6 +104,17 @@ DamageSpell.prototype = Object.create(Spell.prototype, {
    *
    * @param  {number} damage  Amount of damage to deal to the spellcaster
    */
+
+
+Spellcaster.prototype.inflictDamage = function(damage){
+  this.health = this.health - damage;
+  if(this.health === -1){
+    this.health = 0;
+  }
+  if(this.health === 0){
+    this.isAlive = false;
+  }
+}
 
   /**
    * @method spendMana
