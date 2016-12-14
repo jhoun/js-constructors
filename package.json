@@ -4,7 +4,7 @@
     "test": "test"
   },
   "scripts": {
-    "test": "./node_modules/.bin/karma start --single-run --no-auto-watch --browsers PhantomJS"
+    "test": "karma start --single-run --no-auto-watch --browsers PhantomJS"
   },
   "repository": {
     "type": "git",
@@ -27,5 +27,16 @@
     "phantomjs": "^1.9.18",
     "sinon": "^1.17.1",
     "sinon-chai": "^2.8.0"
+  },
+  "xo": {
+    "esnext": true,
+    "space": true,
+    "globals": [
+      "window"
+    ]
   }
+  "description": "1. Navigate to this project in your terminal. 2. Run `http-server`. 3. Open [http://localhost:8080](http://localhost:8080) in Chrome.",
+  "version": "1.0.0",
+  "main": "constructors.js",
+  "keywords": []
 }
