@@ -163,16 +163,30 @@ Spellcaster.prototype.spendMana = function(cost){
    */
 
 Spellcaster.prototype.invoke = function(spell, target){
-   if(spell instanceof(Spell) === false && spell instanceof(DamageSpell) === false){
-    return false;
-   }
-   if (spell instanceof(DamageSpell)) { //checks to see if spell is a Spell or DamageSpell
-    if (arguments[1] === undefined || arguments[1] === null){
-      return false;
+//   if (spell instanceof(DamageSpell) && (target != undefined || target != null)){
+//     target.inflictDamage(spell.damage);
+//     return this.spendMana(spell.cost);
+//   } else if(spell instanceof(Spell) && !(spell instanceof(DamageSpell))){
+
+//       return this.spendMana(spell.cost);
+//     } else {
+//         return false;
+//       }
+//   return false;
+// };
+
+
+
+if(spell instanceof(Spell) === false && spell instanceof(DamageSpell) === false){
+  console.log(target);
+  return false;
+  }
+  if (spell instanceof(DamageSpell)) { //checks to see if spell is a Spell or DamageSpell
+    if (target != undefined || target != null) {
+      target.inflictDamage(spell.damage);
+      return this.spendMana(spell.cost);
     } else {
-      this.mana = this.mana - spell.mana;
-      // target.inflictDamage(spell.damage);
-      return true;
+      return false;
     }
    } else { //this is for Spell
     if (this.spendMana(spell.cost)) {
@@ -182,8 +196,9 @@ Spellcaster.prototype.invoke = function(spell, target){
       return false;
     }
    }
-
 };
+
+
 
 // function runGame(){
 
