@@ -126,10 +126,11 @@ Spellcaster.prototype.inflictDamage = function(damage){
    * @return {boolean} success  Whether mana was successfully spent.
    */
 Spellcaster.prototype.spendMana = function(cost){
-  if(this.mana !== 0 && cost < this.mana){
-    this.mana = this.mana - cost
+  if(this.mana !== 0 && cost <= this.mana){
+    this.mana = this.mana - cost;
     return true;
-  } else {
+  }
+  if(cost > this.mana) {
     return false;
   }
 }
@@ -160,3 +161,51 @@ Spellcaster.prototype.spendMana = function(cost){
    * @param  {Spellcaster} target         The spell target to be inflicted.
    * @return {boolean}                    Whether the spell was successfully cast.
    */
+
+Spellcaster.prototype.invoke = function(spell, target){
+   if(spell instanceof(Spell) === false && spell instanceof(DamageSpell) === false){
+    return false;
+   }
+   if (spell instanceof(DamageSpell)) { //checks to see if spell is a Spell or DamageSpell
+    if (arguments[1] === undefined || arguments[1] === null){
+      return false;
+    } else {
+      this.mana = this.mana - spell.mana;
+      // target.inflictDamage(spell.damage);
+      return true;
+    }
+   } else { //this is for Spell
+    if (this.spendMana(spell.cost)) {
+      return true;
+    }
+    else {
+      return false;
+    }
+   }
+
+};
+
+// function runGame(){
+
+//   //sets Spellcaster
+//   var squirtle = new Spellcaster("Squirtle", 69, 50);
+
+//   //sets Target
+//   var charmander = new Spellcaster("Charmander", 100, 50);
+
+//   //sets DamageSpell
+//   var waterGun = new DamageSpell("Water Gun", 25, 30, "shoots water" )
+
+//   //sets Spell
+//   var sleep = new Spell("Sleep", 20, "puts enemety to sleep" )
+
+//   //invokes Spellcaster's invoke method
+
+//   console.log(squirtle.spendMana(51));
+
+
+//   console.log();
+
+// }
+
+// runGame();
